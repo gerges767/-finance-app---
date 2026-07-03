@@ -1,0 +1,83 @@
+====================================================
+  محفظة التمويل والتحصيل - دليل بناء الـ APK
+  تصميم: Mokhtar Gerges
+====================================================
+
+المحتويات:
+----------
+  main.py           الكود الرئيسي للتطبيق
+  buildozer.spec    إعدادات بناء الـ APK
+  icon.png          أيقونة التطبيق
+  presplash.png     شاشة التحميل
+
+الصلاحيات المطلوبة على الموبايل:
+------------------------------------
+  - READ/WRITE_EXTERNAL_STORAGE  (قراءة وكتابة الملفات)
+  - READ_CONTACTS                (قراءة جهات الاتصال)
+  - CAMERA                       (الكاميرا)
+  - INTERNET                     (الإنترنت)
+  - RECEIVE_BOOT_COMPLETED       (التشغيل مع بدء الجهاز)
+  - VIBRATE                      (الاهتزاز للتنبيهات)
+  - WAKE_LOCK                    (إبقاء الشاشة نشطة)
+
+====================================================
+طريقة البناء - خيار 1: Google Colab (مجاني)
+====================================================
+
+1. افتح: https://colab.research.google.com
+2. أنشئ Notebook جديد
+3. انسخ هذا الكود وشغّله:
+
+!pip install buildozer
+!apt-get install -y python3-pip build-essential git \
+    python3-dev libssl-dev libffi-dev libsqlite3-dev \
+    zlib1g-dev openjdk-17-jdk autoconf libtool
+
+# رفع ملفاتك
+from google.colab import files
+files.upload()  # ارفع main.py و buildozer.spec و icon.png
+
+!buildozer android debug
+
+# تحميل الـ APK
+files.download('bin/financemobile-1.0-debug.apk')
+
+====================================================
+طريقة البناء - خيار 2: Ubuntu/Linux محلي
+====================================================
+
+# تثبيت المتطلبات
+sudo apt update && sudo apt install -y python3-pip \
+    build-essential git python3-dev libssl-dev \
+    libffi-dev libsqlite3-dev zlib1g-dev openjdk-17-jdk \
+    autoconf libtool pkg-config
+
+pip3 install --user buildozer cython
+
+# البناء
+cd /path/to/finance_apk/
+buildozer android debug
+
+# الـ APK سيكون في مجلد bin/
+# financemobile-1.0-debug.apk
+
+====================================================
+تثبيت الـ APK على الموبايل
+====================================================
+1. فعّل "مصادر غير معروفة" في إعدادات الأمان
+2. انقل الـ APK للموبايل
+3. انقر عليه لتثبيته
+4. وافق على الصلاحيات عند الطلب
+
+====================================================
+مميزات التطبيق
+====================================================
+✅ إضافة عملاء وإنشاء جداول أقساط تلقائياً
+✅ تسجيل التحصيل للأقساط فردياً أو جماعياً
+✅ عرض الأقساط المتأخرة مع عدد أيام التأخير
+✅ تقارير إحصائية شاملة
+✅ استيراد بيانات العملاء من ملفات نصية
+✅ قاعدة بيانات SQLite محلية بدون إنترنت
+✅ تنبيهات فورية بالأقساط المستحقة
+✅ كامل الصلاحيات: ملفات، كاميرا، جهات اتصال
+====================================================
